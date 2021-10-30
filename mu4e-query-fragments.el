@@ -110,7 +110,10 @@ Example:
 	(rest (cdr args)))
     (cons (mu4e-query-fragments-expand query) rest)))
 
-(advice-add 'mu4e~proc-find :filter-args 'mu4e-query-fragments--proc-find-query-expand)
+;; support mu4e versions older than 1.7
+(advice-add (if (fboundp 'mu4e--server-find) 'mu4e--server-find 'mu4e~proc-find)
+	    :filter-args 'mu4e-query-fragments--proc-find-query-expand)
+
 
 (defun mu4e-query-fragments-search (&optional arg)
   "Search for EXPR and switch to the output buffer for the results.
