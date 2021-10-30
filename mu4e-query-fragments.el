@@ -125,7 +125,11 @@ the end of the query if called without a prefix argument."
     (let ((expr (read-string "Search for: " nil 'mu4e~headers-search-hist)))
       (mu4e-headers-search (concat expr " " mu4e-query-fragments-append)))))
 
-(define-key mu4e-headers-mode-map (kbd "s") 'mu4e-query-fragments-search)
+(if (boundp 'mu4e-search-minor-mode-map)
+    (define-key mu4e-search-minor-mode-map (kbd "s") 'mu4e-query-fragments-search)
+  ;; support mu4e versions older than 1.7
+  (define-key mu4e-headers-mode-map (kbd "s") 'mu4e-query-fragments-search)
+  (define-key mu4e-main-mode-map (kbd "s") 'mu4e-query-fragments-search))
 
 (provide 'mu4e-query-fragments)
 
