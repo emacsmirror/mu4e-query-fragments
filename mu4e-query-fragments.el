@@ -122,7 +122,7 @@ the end of the query if called without a prefix argument."
   (interactive "P")
   (if (or (not (null arg)) (null mu4e-query-fragments-append))
       (mu4e-headers-search)
-    (let ((expr (read-string "Search for: " nil 'mu4e~headers-search-hist)))
+    (let ((expr (mu4e-search-read-query "Search for: " nil)))
       (mu4e-headers-search (concat expr " " mu4e-query-fragments-append)))))
 
 (if (boundp 'mu4e-search-minor-mode-map)
